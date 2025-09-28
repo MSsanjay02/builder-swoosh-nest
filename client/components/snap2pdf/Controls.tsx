@@ -11,6 +11,7 @@ export type ControlsState = {
   size: "a4" | "letter";
   orientation: "p" | "l";
   compression: boolean;
+  quality: number; // 40-95
   watermark: {
     enabled: boolean;
     text: string;
@@ -35,7 +36,6 @@ export function Controls({
   processing?: boolean;
 }) {
   const { t } = useI18n();
-  const [quality, setQuality] = useState<number>(state.compression ? 70 : 95);
 
   return (
     <div id="settings" className="space-y-6">
@@ -76,12 +76,11 @@ export function Controls({
             <Switch
               checked={state.compression}
               onCheckedChange={(v) => {
-                setState({ ...state, compression: v });
-                setQuality(v ? 70 : 95);
+                setState({ ...state, compression: v, quality: v ? Math.min(state.quality, 80) : 95 });
               }}
             />
           </div>
-          <Slider value={[quality]} min={40} max={95} step={5} onValueChange={(v) => setQuality(v[0])} />
+          <Slider value={[state.quality]} min={40} max={95} step={5} onValueChange={(v) => setState({ ...state, quality: v[0] })} />
         </div>
       </div>
 
@@ -134,6 +133,7 @@ export function Controls({
           orientation: "p",
           size: "a4",
           compression: false,
+          quality: 95,
           watermark: { enabled: false, text: "", size: 32, opacity: 0.3, rotation: 0, position: "center" },
         })}>{t("clear_all")}</Button>
         <Button onClick={onConvert} disabled={disabled || processing}>
@@ -142,8 +142,4 @@ export function Controls({
       </div>
     </div>
   );
-}
-
-export function qualityFromCompression(enabled: boolean, sliderValue: number) {
-  return enabled ? Math.max(0.4, sliderValue / 100) : 0.95;
 }
