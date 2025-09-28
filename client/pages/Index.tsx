@@ -20,6 +20,7 @@ function Snap2PDFPage() {
     size: "a4",
     orientation: "p",
     compression: false,
+    quality: 95,
     watermark: { enabled: false, text: "", size: 32, opacity: 0.3, rotation: 0, position: "center" },
   });
 
