@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Uploader } from "@/components/snap2pdf/Uploader";
 import { ImageGrid } from "@/components/snap2pdf/ImageGrid";
-import { Controls, ControlsState, qualityFromCompression } from "@/components/snap2pdf/Controls";
+import { Controls, ControlsState } from "@/components/snap2pdf/Controls";
 import { useI18n, I18nProvider } from "@/i18n";
 import { loadImagesFromFiles } from "@/utils/image";
 import { imagesToPdf } from "@/utils/pdf";
