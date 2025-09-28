@@ -42,7 +42,7 @@ function Snap2PDFPage() {
 
   const onRemove = (id: string) => setImages((prev) => prev.filter((i) => i.id !== id));
 
-  const quality = useMemo(() => qualityFromCompression(controls.compression, controls.compression ? 70 : 95), [controls.compression]);
+  const quality = useMemo(() => Math.max(0.4, (controls.quality || 95) / 100), [controls.quality]);
 
   const onConvert = async () => {
     if (images.length === 0) return;
