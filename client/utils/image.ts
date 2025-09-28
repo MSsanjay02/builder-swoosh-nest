@@ -22,10 +22,13 @@ export async function fileToDataURL(file: File): Promise<string> {
   });
 }
 
-export async function loadImageMeta(src: string): Promise<{ width: number; height: number }>{
+export async function loadImageMeta(
+  src: string,
+): Promise<{ width: number; height: number }> {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight });
+    img.onload = () =>
+      resolve({ width: img.naturalWidth, height: img.naturalHeight });
     img.onerror = reject;
     img.src = src;
   });
@@ -40,13 +43,23 @@ export async function convertHeicIfNeeded(file: File): Promise<File> {
   });
 }
 
-export async function loadImagesFromFiles(files: File[]): Promise<LoadedImage[]> {
+export async function loadImagesFromFiles(
+  files: File[],
+): Promise<LoadedImage[]> {
   const out: LoadedImage[] = [];
   for (const f of files) {
     const converted = await convertHeicIfNeeded(f);
     const src = await fileToDataURL(converted);
     const { width, height } = await loadImageMeta(src);
-    out.push({ id: crypto.randomUUID(), file: converted, name: converted.name, type: converted.type, src, width, height });
+    out.push({
+      id: crypto.randomUUID(),
+      file: converted,
+      name: converted.name,
+      type: converted.type,
+      src,
+      width,
+      height,
+    });
   }
   return out;
 }
@@ -105,7 +118,9 @@ export function drawWatermark(
   return canvas;
 }
 
-export async function imageElementFromSrc(src: string): Promise<HTMLImageElement> {
+export async function imageElementFromSrc(
+  src: string,
+): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => resolve(img);

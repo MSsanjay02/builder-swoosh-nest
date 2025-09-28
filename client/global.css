@@ -126,7 +126,17 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Inter", "Noto Sans", "Noto Sans Tamil", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    font-family:
+      "Inter",
+      "Noto Sans",
+      "Noto Sans Tamil",
+      system-ui,
+      -apple-system,
+      Segoe UI,
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif;
     font-size: var(--font-scale);
   }
 

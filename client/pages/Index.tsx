@@ -12,7 +12,9 @@ import { useToast } from "@/hooks/use-toast";
 function Snap2PDFPage() {
   const { t } = useI18n();
   const { toast } = useToast();
-  const [images, setImages] = useState<{ id: string; src: string; name: string }[]>([]);
+  const [images, setImages] = useState<
+    { id: string; src: string; name: string }[]
+  >([]);
   const [processing, setProcessing] = useState(false);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
@@ -21,14 +23,29 @@ function Snap2PDFPage() {
     orientation: "p",
     compression: false,
     quality: 95,
-    watermark: { enabled: false, text: "", size: 32, opacity: 0.3, rotation: 0, position: "center" },
+    watermark: {
+      enabled: false,
+      text: "",
+      size: 32,
+      opacity: 0.3,
+      rotation: 0,
+      position: "center",
+    },
   });
 
-  useEffect(() => () => { if (pdfUrl) URL.revokeObjectURL(pdfUrl); }, [pdfUrl]);
+  useEffect(
+    () => () => {
+      if (pdfUrl) URL.revokeObjectURL(pdfUrl);
+    },
+    [pdfUrl],
+  );
 
   const onFiles = async (files: File[]) => {
     const loaded = await loadImagesFromFiles(files);
-    setImages((prev) => [...prev, ...loaded.map((l) => ({ id: l.id, src: l.src, name: l.name }))]);
+    setImages((prev) => [
+      ...prev,
+      ...loaded.map((l) => ({ id: l.id, src: l.src, name: l.name })),
+    ]);
   };
 
   const onReorder = (from: number, to: number) => {
@@ -40,9 +57,13 @@ function Snap2PDFPage() {
     });
   };
 
-  const onRemove = (id: string) => setImages((prev) => prev.filter((i) => i.id !== id));
+  const onRemove = (id: string) =>
+    setImages((prev) => prev.filter((i) => i.id !== id));
 
-  const quality = useMemo(() => Math.max(0.4, (controls.quality || 95) / 100), [controls.quality]);
+  const quality = useMemo(
+    () => Math.max(0.4, (controls.quality || 95) / 100),
+    [controls.quality],
+  );
 
   const onConvert = async () => {
     if (images.length === 0) return;
@@ -85,8 +106,12 @@ function Snap2PDFPage() {
           <div className="rounded-3xl bg-gradient-to-br from-brand-50 to-transparent p-6 dark:from-brand-950/30 border">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
               <div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">{t("app_name")}</h1>
-                <p className="mt-2 text-muted-foreground max-w-prose">{t("privacy_local")}</p>
+                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                  {t("app_name")}
+                </h1>
+                <p className="mt-2 text-muted-foreground max-w-prose">
+                  {t("privacy_local")}
+                </p>
               </div>
               <div className="flex items-center gap-3">
                 {pdfUrl && (
@@ -106,19 +131,32 @@ function Snap2PDFPage() {
             <Uploader onFiles={onFiles} />
             {images.length > 0 && (
               <>
-                <p className="text-sm text-muted-foreground">{t("reorder_hint")}</p>
-                <ImageGrid images={images} onReorder={onReorder} onRemove={onRemove} />
+                <p className="text-sm text-muted-foreground">
+                  {t("reorder_hint")}
+                </p>
+                <ImageGrid
+                  images={images}
+                  onReorder={onReorder}
+                  onRemove={onRemove}
+                />
               </>
             )}
           </div>
           <div className="lg:col-span-1">
-            <Controls state={controls} setState={setControls} onConvert={onConvert} disabled={images.length === 0} processing={processing} />
+            <Controls
+              state={controls}
+              setState={setControls}
+              onConvert={onConvert}
+              disabled={images.length === 0}
+              processing={processing}
+            />
           </div>
         </section>
       </main>
       <footer className="border-t py-6 text-center text-xs text-muted-foreground">
         <p>
-          © {new Date().getFullYear()} {t("app_name")} · <span className="font-medium">{t("tagline")}</span>
+          © {new Date().getFullYear()} {t("app_name")} ·{" "}
+          <span className="font-medium">{t("tagline")}</span>
         </p>
       </footer>
     </div>

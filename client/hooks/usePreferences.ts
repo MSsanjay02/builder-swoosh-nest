@@ -3,9 +3,15 @@ import { useEffect, useState } from "react";
 type Theme = "light" | "dark";
 
 export function usePreferences() {
-  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem("theme") as Theme) || "light");
-  const [highContrast, setHighContrast] = useState<boolean>(() => localStorage.getItem("hc") === "1");
-  const [fontScale, setFontScale] = useState<number>(() => Number(localStorage.getItem("fs")) || 100);
+  const [theme, setTheme] = useState<Theme>(
+    () => (localStorage.getItem("theme") as Theme) || "light",
+  );
+  const [highContrast, setHighContrast] = useState<boolean>(
+    () => localStorage.getItem("hc") === "1",
+  );
+  const [fontScale, setFontScale] = useState<number>(
+    () => Number(localStorage.getItem("fs")) || 100,
+  );
 
   useEffect(() => {
     const root = document.documentElement;
@@ -25,5 +31,12 @@ export function usePreferences() {
     localStorage.setItem("fs", String(clamped));
   }, [fontScale]);
 
-  return { theme, setTheme, highContrast, setHighContrast, fontScale, setFontScale };
+  return {
+    theme,
+    setTheme,
+    highContrast,
+    setHighContrast,
+    fontScale,
+    setFontScale,
+  };
 }

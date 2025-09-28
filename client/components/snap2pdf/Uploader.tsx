@@ -9,7 +9,11 @@ export function Uploader({ onFiles }: { onFiles: (files: File[]) => void }) {
   const onDrop = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
-      const files = Array.from(e.dataTransfer.files).filter((f) => /image\/(jpeg|png|bmp|gif|webp|heic|heif)/i.test(f.type) || /\.(jpe?g|png|bmp|gif|webp|heic|heif)$/i.test(f.name));
+      const files = Array.from(e.dataTransfer.files).filter(
+        (f) =>
+          /image\/(jpeg|png|bmp|gif|webp|heic|heif)/i.test(f.type) ||
+          /\.(jpe?g|png|bmp|gif|webp|heic|heif)$/i.test(f.name),
+      );
       if (files.length) onFiles(files);
     },
     [onFiles],
@@ -27,7 +31,9 @@ export function Uploader({ onFiles }: { onFiles: (files: File[]) => void }) {
     >
       <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-brand-500/0 to-brand-700/0 group-hover:from-brand-500/5 group-hover:to-brand-700/5 transition-colors" />
       <div className="mb-3 text-sm text-muted-foreground">{t("drag_drop")}</div>
-      <div className="mb-6 text-xs text-muted-foreground">{t("supported_formats")}</div>
+      <div className="mb-6 text-xs text-muted-foreground">
+        {t("supported_formats")}
+      </div>
       <div className="flex gap-3">
         <Button onClick={onPick}>{t("upload_images")}</Button>
         <input

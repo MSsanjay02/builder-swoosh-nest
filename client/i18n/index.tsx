@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 export type Locale = "en" | "ta";
 
@@ -49,7 +55,8 @@ const ta: Translations = {
   app_name: "ஸ்நாப்2பிடிஎப்",
   tagline: "மாற்று. பாதுகாப்பு. பகிர்.",
   upload_images: "படங்களை பதிவேற்று",
-  drag_drop: "படங்களை இங்கே இழுத்து விடவும் அல்லது கிளிக் செய்து தேர்வு செய்யவும்",
+  drag_drop:
+    "படங்களை இங்கே இழுத்து விடவும் அல்லது கிளிக் செய்து தேர்வு செய்யவும்",
   supported_formats: "ஆதரவு: JPG, PNG, BMP, HEIC",
   settings: "அமைப்புகள்",
   page_size: "பக்க அளவு",
@@ -76,7 +83,8 @@ const ta: Translations = {
   high_contrast: "உயர் கண்டிராஸ்ட்",
   font_size: "எழுத்து அளவு",
   processing: "செயலாக்கப்படுகிறது...",
-  reorder_hint: "இழுத்து மறுவரிசைப்படுத்துங்கள் அல்லது அம்புகளைப் பயன்படுத்துங்கள்",
+  reorder_hint:
+    "இழுத்து மறுவரிசைப்படுத்துங்கள் அல்லது அம்புகளைப் பயன்படுத்துங்கள்",
   page: "பக்கம்",
   delete: "அழி",
   ocr: "OCR",

@@ -25,7 +25,11 @@ export async function imagesToPdf(
 ): Promise<Blob> {
   if (images.length === 0) throw new Error("No images provided");
 
-  const pdf = new jsPDF({ orientation: opts.orientation, unit: "pt", format: opts.size });
+  const pdf = new jsPDF({
+    orientation: opts.orientation,
+    unit: "pt",
+    format: opts.size,
+  });
 
   for (let i = 0; i < images.length; i++) {
     const src = images[i];
